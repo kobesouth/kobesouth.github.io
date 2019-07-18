@@ -345,26 +345,16 @@
       
         
           
-            <p><strong><em>系统环境：Centos</em></strong></p>
-<h2 id="1、git的安装配置"><a href="#1、git的安装配置" class="headerlink" title="1、git的安装配置"></a>1、git的安装配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装git</span></span><br><span class="line">yum install -y git</span><br><span class="line"><span class="comment">#配置全局username和email地址</span></span><br><span class="line">git config --global user.name <span class="string">"username"</span></span><br><span class="line">git config --global user.email youremailaddress</span><br><span class="line"><span class="comment">#配置Buffer大小，防止出现仓库太大，git clone不下来的问题，报错RPC faled，如下图</span></span><br></pre></td></tr></table></figure>
-
-<p><strong><em>报错如图</em></strong><br><img src="https://raw.githubusercontent.com/kobesouth/kobesouth.github.io/images/images/git_buffer_error.png" alt></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置Buffer</span></span><br><span class="line">git config --global http.postBuffer 524288000</span><br><span class="line"><span class="comment">#查看全局配置选项</span></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
-
-<h2 id="2、安装依赖环境"><a href="#2、安装依赖环境" class="headerlink" title="2、安装依赖环境"></a>2、安装依赖环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#hexo依赖node_js、npm管理环境</span></span><br><span class="line"><span class="comment">#升级相关包</span></span><br><span class="line">yum update nss nss-util nspr curl -y</span><br><span class="line"><span class="comment">#安装nvm</span></span><br><span class="line">curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash</span><br><span class="line"><span class="comment">#注意，此处的 v0.33.2 是版本数字，会随着项目开发而变化。可随时通过官方最新安装地址来检查最新安装版本</span></span><br><span class="line">官方地址：https://github.com/creationix/nvm<span class="comment">#install-script</span></span><br><span class="line"><span class="comment">#渲染环境变量</span></span><br><span class="line"><span class="built_in">source</span> ~/.nvm/nvm.sh </span><br><span class="line"><span class="comment">#安装node并使用</span></span><br><span class="line">nvm install node &amp;&amp; nvm use node</span><br><span class="line">Ps:</span><br><span class="line">a、指定版本安装 使用 nvm install v10.1.0</span><br><span class="line">b、使用制定版本 nvm use v10.1.0</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、安装hexo"><a href="#3、安装hexo" class="headerlink" title="3、安装hexo"></a>3、安装hexo</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#初始化安装</span></span><br><span class="line">npm install -g hexo-cli</span><br><span class="line"><span class="comment">#安装完查看，正常输出如下图，则是安装成功</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/kobesouth/kobesouth.github.io/images/images/hexo_v.png" alt></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#初始化博客目录，以blog为例</span></span><br><span class="line">hexo init blog</span><br><span class="line"><span class="comment">#进入目录，初始化安装</span></span><br><span class="line"><span class="built_in">cd</span> blog &amp;&amp; npm install</span><br><span class="line"><span class="comment">#安装必要的插件</span></span><br><span class="line">npm install hexo-server --save</span><br><span class="line">npm install hexo-admin --save</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、部署到github展示"><a href="#4、部署到github展示" class="headerlink" title="4、部署到github展示"></a>4、部署到github展示</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑初始化_config.yml</span></span><br><span class="line">vi ../blog/_config.yml </span><br><span class="line"><span class="comment">#找到deploy部分，编辑相关git关联信息</span></span><br><span class="line"><span class="comment">#注意：冒号后面必须有一个空格</span></span><br><span class="line"><span class="built_in">type</span>: git</span><br><span class="line">repo: git@github.com:yourusername/yourusername.github.io.git</span><br><span class="line">branch: master</span><br><span class="line"><span class="comment">#如果不想多次输入密码，可以把密码写在yourusername:password</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/kobesouth/kobesouth.github.io/images/images/deploy_yaml.png" alt></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#清理（第一次可以不用执行），生成静态网页，并deploy发布到github上</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br><span class="line"><span class="comment">#然后进行第一次浏览器访问</span></span><br><span class="line">https://kobesouth.github.io/</span><br><span class="line"><span class="comment">#界面看到有hexo的hello world博文，即搭建完成</span></span><br><span class="line"><span class="comment">#然后就开始维护你的博客吧</span></span><br><span class="line"></span><br><span class="line">PS：</span><br><span class="line"><span class="comment">#可以去下面地址下载自己喜欢的主题来使用，更改_config.yaml中的"theme:"配置即可</span></span><br><span class="line">主题地址：https://hexo.io/themes/</span><br><span class="line"><span class="comment">#以后更新博客，按以下操作，编辑之后，生成并发布</span></span><br><span class="line">hexo new <span class="string">"article name"</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-
-
-          
+          系统环境：Centos
+1、git的安装配置#安装gityum install -y git#配置全局username和email地址git config --global user.name "username"git config --global user.email youremailadd
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/22/hexo-github-page搭建博客小记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -504,9 +494,16 @@
       
         
           
-            <p><img src="https://avatars2.githubusercontent.com/u/11292179?s=400&u=0eb37bce200c2eb45f8f3186fb8228256e543c17&v=4" alt="嘿"></p>
+          
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/19/LAL/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
